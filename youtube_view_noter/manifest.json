@@ -1,12 +1,12 @@
 {
-    "name": "Tab Interact",
+    "name": "Youtube View Noter",
     "version": "1.0.0",
-    "description": "This is just an experimental extension to make changes to a tab content, only for educational purpose.",
+    "description": "This extention notes the view of various youtube videos",
     "manifest_version": 3,
     "author": "Devashish Priyadarhsi",
     "action":{
         "default_popup": "index.html",
-        "default_title": "Tab Interact"
+        "default_title": "Youtube View Noter"
     },
     "permissions": [
         "tabs", "activeTab","scripting"
