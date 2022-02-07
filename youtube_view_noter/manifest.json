@@ -9,6 +9,6 @@
         "default_title": "Youtube View Noter"
     },
     "permissions": [
-        "tabs", "activeTab","scripting"
+        "tabs", "activeTab","scripting","storage"
     ]
 }
