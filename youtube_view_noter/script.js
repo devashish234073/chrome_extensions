@@ -27,20 +27,27 @@ async function getCurrentTab() {
 
 function noteView(url,views) {
     var tr = document.createElement("tr");
-    var td1 = document.createElement("td");
-    var td2 = document.createElement("td");
-    td1.style.fontSize = "10px";
-    td2.style.fontSize = "10px";
-    tr.appendChild(td1);
-    tr.appendChild(td2);
+    var td = document.createElement("td");
+    td.setAttribute("colspan","2");
+    td.innerText = url;
+    tr.appendChild(td);
     mainTable.appendChild(tr);
-    
-    td1.innerText = url;
-    var vs = "";
     for(let i=0;i<views.length;i++) {
-        vs += views[i] + "\r\n";
+        var v = views[i];
+        var vs = v.split("):");
+        if(vs.length==2) {
+            let tr1 = document.createElement("tr");
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            td1.style.fontSize = "10px";
+            td2.style.fontSize = "10px";
+            tr1.appendChild(td1);
+            tr1.appendChild(td2);
+            mainTable.appendChild(tr1);
+            td1.innerText = (vs[0]+")").replace("[","");
+            td2.innerText = vs[1].replace("]","");
+        }
     }
-    td2.innerText = vs;
     /*var obj = {};
     chrome.storage.sync.get([url], function(result) {
         if(result!=undefined && result.value!=undefined) {
