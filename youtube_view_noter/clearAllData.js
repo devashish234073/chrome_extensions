@@ -1,0 +1,1 @@
+localStorage.setItem("youtube_view_noter",null);

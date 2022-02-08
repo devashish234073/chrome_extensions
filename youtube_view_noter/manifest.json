@@ -1,6 +1,6 @@
 {
     "name": "Youtube View Noter",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "description": "This extention notes the view of various youtube videos",
     "manifest_version": 3,
     "author": "Devashish Priyadarhsi",
@@ -10,5 +10,11 @@
     },
     "permissions": [
         "tabs", "activeTab","scripting","storage"
+    ],
+    "content_scripts": [
+        {
+          "matches": ["http://www.youtube.com/*","https://www.youtube.com/*"],
+          "js": ["background.js"]
+        }
     ]
 }

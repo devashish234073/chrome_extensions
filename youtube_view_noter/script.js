@@ -85,3 +85,17 @@ chrome.runtime.onMessage.addListener(
       } 
     }
   );
+
+function clearAllData() {
+    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+        tabid.innerText = tabs[0].id;
+        chrome.scripting.executeScript(
+        {
+            target: { tabId: tabs[0].id },
+            files: ['clearAllData.js']
+        });
+    });
+}
+
+var clearAllDataBtn = document.querySelector("#clearAllDataBtn");
+clearAllDataBtn.addEventListener("click",clearAllData);
