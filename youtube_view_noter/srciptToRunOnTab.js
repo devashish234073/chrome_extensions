@@ -4,7 +4,7 @@ if (counter != undefined) {
     if (data == null || data == undefined) {
         data = {};
     } else {
-       data = JSON.parse(data);
+        data = JSON.parse(data);
     }
     if (data == null || data == undefined) {
         data = {};
@@ -12,9 +12,17 @@ if (counter != undefined) {
     } else if (data[window.location.href] == undefined) {
         data[window.location.href] = ["[" + (new Date()) + ": " + counter.innerText + "]"];
     } else {
-        var lastElem = data[window.location.href][data[window.location.href].length-1];
-        if(lastElem.indexOf(counter.innerText + "]")==-1) {//if the viewcount is not noted
-            data[window.location.href].push("[" + (new Date()) + ": " + counter.innerText + "]");
+        var lastElem = data[window.location.href][data[window.location.href].length - 1];
+        var lastElemCount = parseInt(String(lastElem.split("):")[1]).split(",").join(""));
+        //console.log(`Analyzing view count: ${counter.innerText}`);
+        if (lastElem.indexOf(counter.innerText + "]") == -1) {//if the viewcount is not noted
+            var currentElemCount = parseInt(String(counter.innerText).split(",").join(""));
+            if (currentElemCount > lastElemCount) {
+                data[window.location.href].push("[" + (new Date()) + ": " + counter.innerText + "]");
+                //noted = true;
+            } else {
+                console.log(`Ignored! View count in this tab: ${currentElemCount} is less than previousy noted ${lastElemCount}`);
+            }
         }
     }
     localStorage.setItem("youtube_view_noter", JSON.stringify(data));
