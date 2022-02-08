@@ -27,6 +27,7 @@ async function getCurrentTab() {
 
 function noteView(url,views) {
     var tr = document.createElement("tr");
+    tr.setAttribute("class","dataRow");
     var td = document.createElement("td");
     td.setAttribute("colspan","2");
     td.innerText = url;
@@ -37,6 +38,7 @@ function noteView(url,views) {
         var vs = v.split("):");
         if(vs.length==2) {
             let tr1 = document.createElement("tr");
+            tr1.setAttribute("class","dataRow");
             var td1 = document.createElement("td");
             var td2 = document.createElement("td");
             td1.style.fontSize = "10px";
@@ -95,6 +97,10 @@ function clearAllData() {
             files: ['clearAllData.js']
         });
     });
+    var dataRow = document.querySelectorAll(".dataRow");
+    for(var i=0;i<dataRow.length;i++) {
+        dataRow[i].style.display = "none";
+    }
 }
 
 var clearAllDataBtn = document.querySelector("#clearAllDataBtn");
