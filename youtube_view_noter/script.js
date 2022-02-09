@@ -2,6 +2,7 @@ var tabid = document.querySelector("#tabid");
 var pageTitle = document.querySelector("#pageTitle");
 var tabIcon = document.querySelector("#tabIcon");
 var mainTable = document.querySelector("#mainTable");
+var dataTable = document.querySelector("#dataTable");
 console.log(chrome.tabs);
 
 
@@ -32,7 +33,8 @@ function noteView(url,views) {
     td.setAttribute("colspan","2");
     td.innerText = url;
     tr.appendChild(td);
-    mainTable.appendChild(tr);
+    dataTable.appendChild(tr);
+    dataTable.style.height = "280px";
     for(let i=0;i<views.length;i++) {
         var v = views[i];
         var vs = v.split("):");
@@ -45,7 +47,7 @@ function noteView(url,views) {
             td2.style.fontSize = "10px";
             tr1.appendChild(td1);
             tr1.appendChild(td2);
-            mainTable.appendChild(tr1);
+            dataTable.appendChild(tr1);
             td1.innerText = (vs[0]+")").replace("[","");
             td2.innerText = vs[1].replace("]","");
         }
