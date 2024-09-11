@@ -58,17 +58,3 @@ let server = http.createServer(serverFunction);
 server.listen(PORT, () => {
     console.log(`listening on PORT ${PORT} open http://localhost:${PORT}`);
 })
-
-/*const pythonScript = 'python3 path/to/your/app.py'; // Change 'python3' to 'python' if using Python 2
-
-exec(pythonScript, (error, stdout, stderr) => {
-    if (error) {
-        console.error(`Error executing Python script: ${error.message}`);
-        return;
-    }
-    if (stderr) {
-        console.error(`Python script error: ${stderr}`);
-        return;
-    }
-    console.log(`Python script output: ${stdout}`);
-});*/
