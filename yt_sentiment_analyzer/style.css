@@ -1,0 +1,73 @@
+.sentiment-indicator {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  font-size: 12px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+  animation: slow-rotate 1s linear infinite;
+}
+
+@keyframes slow-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sentiment-positive {
+  background: rgba(34, 197, 94, 0.8) !important;
+}
+
+.sentiment-negative {
+  background: rgba(239, 68, 68, 0.8) !important;
+}
+
+.sentiment-neutral {
+  background: rgba(107, 114, 128, 0.8) !important;
+}
+
+.sentiment-unknown {
+  background: rgba(156, 163, 175, 0.8) !important;
+}
+
+.sentiment-analyze-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 12px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sentiment-analyze-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sentiment-analyze-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Dark mode support for YouTube */
+[dark] .sentiment-indicator {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
