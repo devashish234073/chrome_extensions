@@ -7,3 +7,16 @@ cd chrome_extensions
 cd yt_sentiment_analyzer
 node cors_proxy.js
 ```
+
+To install the extention from source:
+
+in edge goto Manage Extentions:
+![image](https://github.com/user-attachments/assets/ebe051ab-d9f7-4bc2-a1f7-67890a8761fb)
+
+Click on load unpacked, you might have to turn the dev tool toggle on if its off:
+![image](https://github.com/user-attachments/assets/dad21617-581b-42fd-a7d9-8e1a22c61406)
+
+Select the folder:
+![image](https://github.com/user-attachments/assets/7d13b07e-153f-42ea-8949-95877dab1663)
+
+
