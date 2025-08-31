@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>YouTube Embed</title>
+    <style>
+      body { font-family: Arial, sans-serif; width: 420px; margin: 12px; }
+      h1 { font-size: 16px; margin: 0 0 8px; }
+      #preview { border: 1px solid #ddd; padding: 8px; border-radius: 6px; margin-top: 8px; text-align: center; }
+      textarea { width: 100%; height: 110px; box-sizing: border-box; font-family: monospace; font-size: 13px; }
+      button { margin-right: 8px; margin-top: 8px; padding: 8px 10px; border-radius: 6px; cursor: pointer; }
+      .muted { color: #666; font-size: 12px; margin-top: 6px; }
+      #status { margin-top:8px; font-size:13px; color: green; }
+    </style>
+  </head>
+  <body>
+    <h1>YouTube Embed Snippet</h1>
+    <div id="controls">
+      <button id="build">Build embed for current tab</button>
+      <button id="copy" disabled>Copy HTML</button>
+      <button id="download" disabled>Download .html</button>
+    </div>
+
+    <div id="preview">
+      <div id="playerPreview">No preview yet</div>
+    </div>
+
+    <div class="muted">Generated iframe HTML:</div>
+    <textarea id="iframeHtml" placeholder="iframe HTML will appear here" readonly></textarea>
+
+    <div id="status"></div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

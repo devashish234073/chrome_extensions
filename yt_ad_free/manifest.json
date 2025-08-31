@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Embed Snippet",
+  "description": "Create an embeddable iframe for the currently open YouTube video (copy / download).",
+  "version": "1.0",
+  "permissions": ["scripting", "activeTab", "tabs", "storage"],
+  "host_permissions": ["*://*.youtube.com/*", "*://youtu.be/*"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
