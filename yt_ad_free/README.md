@@ -1,5 +1,9 @@
 This extension opens the youtube video playing in current tab in extension window.
 
+Video for demo:
+
+<iframe width="810" height="492" src="https://www.youtube.com/embed/kGPUj6NjGls" title="Yt ad free by creating an extension that embeds youtube video in the popup that doesn&#39;t play the ad" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 To install run
 
 ```
