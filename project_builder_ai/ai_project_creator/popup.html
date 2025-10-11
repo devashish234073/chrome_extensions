@@ -1,3 +1,49 @@
+<style>
+    .progressOverlay {
+        position: fixed;
+        inset: 0;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 9999;
+    }
+
+    .spinner {
+        width: 56px;
+        height: 56px;
+        border: 6px solid rgba(255, 255, 255, 0.8);
+        border-top-color: #1e90ff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Small container styles */
+    body {
+        font-family: Arial, sans-serif;
+        padding: 12px;
+        min-width: 240px
+    }
+
+    #out {
+        margin-bottom: 8px
+    }
+</style>
+<body>
 <div id="out"></div>
 <button id="capture">Capture</button>
+<div class="progressOverlay" aria-hidden="true">
+	<div class="spinner" role="progressbar" aria-label="Loading"></div>
+</div>
 <script src="popup.js"></script>
+</body>

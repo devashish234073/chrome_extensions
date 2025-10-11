@@ -1,5 +1,7 @@
 let btn = document.querySelector("#capture");
 let out = document.querySelector("#out");
+let overlay = document.querySelector(".progressOverlay");
+overlay.style.display = 'none';
 
 btn.onclick = async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -38,10 +40,11 @@ async function callOllamaWithResp(result) {
         body: raw,
         redirect: "follow"
     };
-
+    overlay.style.display = 'flex';
     let resp = await fetch("http://localhost:3000/ollama", requestOptions);
+    overlay.style.display = 'none';
     if(!resp.ok) {
-        return "Error calling ollama api";
+        return {"error":"Error calling ollama api"};
     }
 
     return resp.json();
