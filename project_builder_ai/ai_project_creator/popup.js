@@ -15,7 +15,20 @@ btn.onclick = async () => {
     });
     out.innerText = results[0].result;
     let resp = await callOllamaWithResp(results[0].result);
-    out.innerText = JSON.stringify(resp);
+    if(resp.error) {
+        out.innerText = resp.error;
+        return;
+    }
+    for(let i=0;i<resp.length;i++) {
+        let data = resp[i];
+        let fileName = document.createElement("p");
+        fileName.innerText = data.fileName + " - " + data.path;
+        let ta = document.createElement("textarea");
+        ta.innerText = data.content;
+        document.body.appendChild(fileName);
+        document.body.appendChild(ta);
+    }
+    out.innerText = JSON.stringify(resp.length+" file details captured.");
     /*
         .then((results) => {
             out.innerText = results[0].result;
@@ -29,7 +42,7 @@ async function callOllamaWithResp(result) {
 
     const raw = JSON.stringify({
         "model": "qwen3:1.7b",
-        "prompt": "Read this: "+result+" just return all the filenames that needs to be created here java ones as well as non java files, for java files make sure java filename case is mathing the class name case with the extension for non java files return filename from above text as it is, all data should be  in a json structure with this data which will be a list of object each containing fileName and path attributes as mandatory and for java files have a package attribute also for non java files just the fileName and path. just return the json list nothing else",
+        "prompt": "Read this: "+result+" just return all the filenames that needs to be created here java ones as well as non java files, for java files make sure java filename case is mathing the class name case with the extension for non java files return filename from above text as it is, all data should be  in a json structure with this data which will be a list of object each containing fileName and path attributes as mandatory and for java files have a package attribute also for non java files just the fileName and path and also a content attribute having content of the file. just return the json list nothing else",
         "stream": false,
         "think": false
     });
@@ -41,7 +54,12 @@ async function callOllamaWithResp(result) {
         redirect: "follow"
     };
     overlay.style.display = 'flex';
-    let resp = await fetch("http://localhost:3000/ollama", requestOptions);
+    let resp = "";
+    try {
+        resp = await fetch("http://localhost:3000/ollama", requestOptions);
+    } catch(e) {
+        return {"error":"Error calling ollama api"};
+    }
     overlay.style.display = 'none';
     if(!resp.ok) {
         return {"error":"Error calling ollama api"};
