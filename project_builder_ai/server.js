@@ -2,6 +2,8 @@ const express = require('express');
 const http = require('http');
 const https = require('https');
 const { URL } = require('url');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -91,6 +93,60 @@ function forwardRequest({ url, method = 'GET', headers = {}, body }) {
 	});
 }
 
+/**
+ * Create nested directories from a path (e.g. "/src/main/java") and write a file inside.
+ *
+ * Behavior:
+ * - pathStr may start with or without a leading slash. Leading slashes are ignored and treated as
+ *   relative to the project root (process.cwd()).
+ * - fileName is the file to create inside the final directory (e.g. "Text.js").
+ * - content is written as UTF-8.
+ *
+ * @param {string} pathStr - A slash-separated path like "/src/main/java" or "src/main/java".
+ * @param {string} fileName - File name to create, e.g. "Text.js".
+ * @param {string|Buffer} content - File content to write.
+ * @returns {{ success: boolean, filePath?: string, error?: string }}
+ */
+function writeNestedFile(pathStr, fileName, content) {
+	if(pathStr==fileName) {
+		pathStr = "/projects"
+	} else if(pathStr.endsWith(fileName)) {
+		pathStr = "/projects/"+pathStr.replace(fileName, "");
+	} else {
+		pathStr = "/projects/"+pathStr;
+	}
+	try {
+		if (typeof pathStr !== 'string' || !pathStr) {
+			throw new Error('pathStr must be a non-empty string');
+		}
+		if (typeof fileName !== 'string' || !fileName) {
+			throw new Error('fileName must be a non-empty string');
+		}
+
+		// Normalize slashes and remove any leading slashes so we treat it as relative to cwd
+		let normalized = pathStr.replace(/\\/g, '/');
+		if (normalized.startsWith('/')) {
+			normalized = normalized.replace(/^\/+/, '');
+		}
+
+		// If after stripping it's empty, use current directory
+		const relativeParts = normalized === '' ? [] : normalized.split('/').filter(Boolean);
+
+		const baseDir = path.join(process.cwd(), ...relativeParts);
+
+		// Ensure directories exist
+		fs.mkdirSync(baseDir, { recursive: true });
+
+		const filePath = path.join(baseDir, fileName);
+
+		fs.writeFileSync(filePath, content, 'utf8');
+
+		return { success: true, filePath };
+	} catch (err) {
+		return { success: false, error: err.message };
+	}
+}
+
 // POST /one
 // Expected JSON payload: { url: string, method?: string, headers?: object, body?: any }
 app.post('/ollama', async (req, res) => {
@@ -137,7 +193,11 @@ app.post('/ollama', async (req, res) => {
             console.log(val[1]);
             if(val[1].indexOf("json")>=0) {
                 val[1] = val[1].substr(val[1].indexOf("json")+4);
-                return res.json(JSON.parse(val[1]));
+				let data = JSON.parse(val[1]);
+				for(let i=0;i<data.length;i++) {
+					writeNestedFile(data[i].path, data[i].fileName, data[i].content);
+				}
+                return res.json(data);
             }
 			return res.json(remote.body);
 		}

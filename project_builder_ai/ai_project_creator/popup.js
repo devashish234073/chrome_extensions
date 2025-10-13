@@ -52,7 +52,7 @@ async function callOllamaWithResp(result) {
 
     const raw = JSON.stringify({
         "model": "qwen3:1.7b",
-        "prompt": "Read this: "+result+" just return all the filenames that needs to be created here java ones as well as non java files, for java files make sure java filename case is mathing the class name case with the extension for non java files return filename from above text as it is, all data should be  in a json structure with this data which will be a list of object each containing fileName and path attributes as mandatory and for java files have a package attribute also for non java files just the fileName and path and also a content attribute having content of the file. just return the json list nothing else",
+        "prompt": "Read this: "+result+" just return all the filenames, path and content that needs to be created here java ones as well as non java files, for java files make sure java filename case is mathing the class name case with the extension for non java files return filename from above text as it is, all data should be  in a json structure with this data which will be a list of object each containing fileName, content and path attributes as mandatory(path will containing the full path under which file needs to be created) , the content attribute will be having content of the file. just return the json list containing all these and nothing else",
         "stream": false,
         "think": false
     });
