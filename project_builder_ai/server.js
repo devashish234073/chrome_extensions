@@ -186,11 +186,10 @@ app.post('/ollama', async (req, res) => {
 
 		// Set status code
 		res.status(remote.status || 200);
-
+		console.log("remote.body",remote.body);
 		// Send body. If remote body is an object, send as JSON, otherwise send raw text
 		if (typeof remote.body === 'object' && remote.body !== null) {
             let val = remote.body.response.split("```");
-            console.log(val[1]);
             if(val[1].indexOf("json")>=0) {
                 val[1] = val[1].substr(val[1].indexOf("json")+4);
 				let data = JSON.parse(val[1]);

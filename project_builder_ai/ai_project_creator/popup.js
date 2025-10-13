@@ -1,5 +1,6 @@
 let btn = document.querySelector("#capture");
 let out = document.querySelector("#out");
+let modelContainer = document.querySelector('#modelContainer');
 // support both id and class names for backward compatibility
 let overlay = document.getElementById('progress-overlay') || document.querySelector('.progressOverlay') || document.querySelector('#progress-overlay');
 if (overlay) overlay.style.display = 'none';
@@ -51,7 +52,7 @@ async function callOllamaWithResp(result) {
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
-        "model": "qwen3:1.7b",
+        "model": modelContainer.value,
         "prompt": "Read this: "+result+" just return all the filenames, path and content that needs to be created here java ones as well as non java files, for java files make sure java filename case is mathing the class name case with the extension for non java files return filename from above text as it is, all data should be  in a json structure with this data which will be a list of object each containing fileName, content and path attributes as mandatory(path will containing the full path under which file needs to be created) , the content attribute will be having content of the file. just return the json list containing all these and nothing else",
         "stream": false,
         "think": false
